@@ -1,7 +1,5 @@
 FROM golang:alpine
 
-LABEL maintainer = "Dinesh"
-
 WORKDIR /clean_gin_api
 ADD . .
 
