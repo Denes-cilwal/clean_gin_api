@@ -1,0 +1,46 @@
+version: '3.0'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: ./docker/app.dockerfile
+    ports:
+      - 9000:8080
+    volumes:
+      - .:/golang-docker
+    depends_on:
+      - database
+    container_name: golang-docker-web
+    environment:
+      - 'DB_PORT=3306'
+      - 'DB_HOST=database'
+
+  database:
+    image: mysql:5.7.22
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      MYSQL_DATABASE: golang-docker
+    container_name: golang-docker-db
+    ports:
+      - 33066:3306
+    volumes:
+      - golang-docker-data:/var/lib/mysql 
+
+  pma:
+    image: phpmyadmin/phpmyadmin
+    depends_on:
+      - database
+    ports:
+      - 5003:80
+    environment:
+      - 'PMA_HOST=database'
+      - 'PMA_PORT=3306'
+    container_name: golang-docker-pma
+
+
+# persisted storage
+volumes:
+  golang-docker-data:
