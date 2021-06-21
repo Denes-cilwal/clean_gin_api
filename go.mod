@@ -1,4 +1,4 @@
-module Clean_Gin_Api
+module clean_gin_api
 
 go 1.16
 
