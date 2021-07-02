@@ -1,10 +1,10 @@
 package routes
 
 // Routes contains multiple routes
-type Routes []Route
+type Routes []IRoute
 
 // Route interface
-type Route interface {
+type IRoute interface {
 	Setup()
 }
 
