@@ -1,8 +1,12 @@
 package main
 
-import "go.uber.org/fx"
+import (
+	"clean_gin_api/app"
+
+	"go.uber.org/fx"
+)
 
 func main() {
-	// create a empty Fx application
-	fx.New().Run()
+	// create a Fx application
+	fx.New(app.Module).Run()
 }

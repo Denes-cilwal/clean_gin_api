@@ -12,9 +12,13 @@ import (
 	"go.uber.org/fx"
 )
 
-// func fx.Options(opts ...fx.Option) fx.Option
-// Options converts a collection of Options into a single Option.
-// This allows packages to bundle sophisticated functionality into easy-to-use Fx modules
+/**
+
+func fx.Options(opts ...fx.Option) fx.Option
+Options converts a collection of Options into a single Option.
+This allows packages to bundle sophisticated functionality into easy-to-use Fx modules
+
+**/
 
 //  Module exported for initializing application
 var Module = fx.Options(
@@ -26,7 +30,7 @@ var Module = fx.Options(
 	models.Module,
 )
 
-func bootstrap(
+func App(
 	lifecycle fx.Lifecycle,
 
 ) {
