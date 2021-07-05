@@ -1,10 +1,7 @@
 package models
 
-import (
-	"go.uber.org/fx"
-)
+import "clean_gin_api/lib"
 
-// Module exported from models package
-var Module = fx.Options(
-// fx.Provide(NewMigrations),
-)
+type Base struct {
+	ID lib.BinaryUUID `json:"id"`
+}
