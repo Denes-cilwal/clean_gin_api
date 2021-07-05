@@ -2,12 +2,13 @@ package app
 
 import (
 	controller "clean_gin_api/api/controllers"
+	"clean_gin_api/api/middlewares"
 	"clean_gin_api/api/routes"
-	"clean_gin_api/models"
+	"clean_gin_api/infrastructure"
+	"clean_gin_api/lib"
 	"clean_gin_api/respository"
 	"clean_gin_api/services"
 	"context"
-	"fmt"
 
 	"go.uber.org/fx"
 )
@@ -23,26 +24,58 @@ This allows packages to bundle sophisticated functionality into easy-to-use Fx m
 //  Module exported for initializing application
 var Module = fx.Options(
 	// Group Providers...
-	routes.Module,
 	controller.Module,
+	routes.Module,
 	services.Module,
+	infrastructure.Module,
+	middlewares.Module,
 	respository.Module,
-	models.Module,
+	lib.Module,
+	fx.Invoke(App),
 )
 
 func App(
 	lifecycle fx.Lifecycle,
-
+	handler infrastructure.Router,
+	routes routes.Routes,
+	env lib.Env,
+	middlewares middlewares.Middlewares,
+	logger lib.Logger,
+	database infrastructure.Database,
+	migrations infrastructure.Migrations,
 ) {
-
+	_, cancel := context.WithCancel(context.Background())
 	lifecycle.Append(fx.Hook{
 		OnStart: func(context.Context) error {
-			fmt.Println("starting Application.......")
-			return nil
+			logger.Info("Starting Application")
+			logger.Info("-----------------------------")
+			logger.Info("------- clean_gin_api 🚀 -------")
+			logger.Info("-----------------------------")
 
+			logger.Info("Migrating database schemas")
+			migrations.Migrate()
+
+			go func() {
+				middlewares.Setup()
+				routes.Setup()
+				if env.ServerPort == "" {
+					_ = handler.Run()
+				}
+			}()
+			return nil
 		},
 		OnStop: func(context.Context) error {
-			fmt.Println("closing Application")
+
+			logger.Info("Stopping Application")
+			sqlDB, _ := database.DB.DB()
+			err := sqlDB.Close()
+
+			if err != nil {
+				logger.Info("Database connection not closed")
+			}
+
+			logger.Info("Closing context")
+			cancel()
 			return nil
 		},
 	})
