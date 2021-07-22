@@ -44,38 +44,30 @@ func App(
 	database infrastructure.Database,
 	migrations infrastructure.Migrations,
 ) {
-	_, cancel := context.WithCancel(context.Background())
 	lifecycle.Append(fx.Hook{
 		OnStart: func(context.Context) error {
 			logger.Info("Starting Application")
-			logger.Info("-----------------------------")
-			logger.Info("------- clean_gin_api 🚀 -------")
-			logger.Info("-----------------------------")
+			logger.Info("-------------------------------------")
+			logger.Info("------- gin-apiu📺 -------")
+			logger.Info("-------------------------------------")
 
-			logger.Info("Migrating database schemas")
-			migrations.Migrate()
-
+			go migrations.Migrate()
 			go func() {
 				middlewares.Setup()
 				routes.Setup()
 				if env.ServerPort == "" {
-					_ = handler.Run()
+					handler.Run()
+				} else {
+					handler.Run(":" + env.ServerPort)
 				}
+
 			}()
 			return nil
 		},
-		OnStop: func(context.Context) error {
-
+		OnStop: func(ctx context.Context) error {
 			logger.Info("Stopping Application")
-			sqlDB, _ := database.DB.DB()
-			err := sqlDB.Close()
-
-			if err != nil {
-				logger.Info("Database connection not closed")
-			}
-
-			logger.Info("Closing context")
-			cancel()
+			conn, _ := database.DB.DB()
+			conn.Close()
 			return nil
 		},
 	})
