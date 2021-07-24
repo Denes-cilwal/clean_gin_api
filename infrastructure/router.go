@@ -1,7 +1,6 @@
 package infrastructure
 
 import (
-	"clean_gin_api/lib"
 	"fmt"
 	"net/http"
 
@@ -14,7 +13,7 @@ type Router struct {
 }
 
 //NewRouter : all the routes are defined here
-func NewRouter(env lib.Env) Router {
+func NewRouter() Router {
 	fmt.Println("Getting user routes...")
 	// intialize a router.
 	httpRouter := gin.Default()

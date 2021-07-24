@@ -1,7 +1,7 @@
 package app
 
 import (
-	controller "clean_gin_api/api/controllers"
+	"clean_gin_api/api/controllers"
 	"clean_gin_api/api/middlewares"
 	"clean_gin_api/api/routes"
 	"clean_gin_api/infrastructure"
@@ -24,7 +24,7 @@ This allows packages to bundle sophisticated functionality into easy-to-use Fx m
 //  Module exported for initializing application
 var Module = fx.Options(
 	// Group Providers...
-	controller.Module,
+	controllers.Module,
 	routes.Module,
 	services.Module,
 	infrastructure.Module,
@@ -44,14 +44,17 @@ func App(
 	database infrastructure.Database,
 	migrations infrastructure.Migrations,
 ) {
+	_, cancel := context.WithCancel(context.Background())
 	lifecycle.Append(fx.Hook{
 		OnStart: func(context.Context) error {
 			logger.Info("Starting Application")
-			logger.Info("-------------------------------------")
-			logger.Info("------- gin-apiu📺 -------")
-			logger.Info("-------------------------------------")
+			logger.Info("-----------------------------")
+			logger.Info("------- clean_gin-api 🚀 -------")
+			logger.Info("-----------------------------")
 
-			go migrations.Migrate()
+			logger.Info("Migrating database schemas")
+			migrations.Migrate()
+
 			go func() {
 				middlewares.Setup()
 				routes.Setup()
@@ -64,10 +67,18 @@ func App(
 			}()
 			return nil
 		},
-		OnStop: func(ctx context.Context) error {
+		OnStop: func(context.Context) error {
+
 			logger.Info("Stopping Application")
-			conn, _ := database.DB.DB()
-			conn.Close()
+			sqlDB, _ := database.DB.DB()
+			err := sqlDB.Close()
+
+			if err != nil {
+				logger.Info("Database connection not closed")
+			}
+
+			logger.Info("Closing context")
+			cancel()
 			return nil
 		},
 	})

@@ -1,4 +1,4 @@
-package controller
+package controllers
 
 import (
 	"clean_gin_api/models"
