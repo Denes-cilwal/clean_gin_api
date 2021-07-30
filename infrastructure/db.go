@@ -34,16 +34,6 @@ func NewDatabase(Zaplogger lib.Logger, env lib.Env) Database {
 
 	url := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local", env.DBUsername, env.DBPassword, env.DBHost, env.DBPort, env.DBName)
 
-	if env.Environment != "local" {
-		url = fmt.Sprintf(
-			"%s:%s@unix(/cloudsql/%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
-			env.DBUsername,
-			env.DBPassword,
-			env.DBHost,
-			env.DBName,
-		)
-	}
-
 	db, err := gorm.Open(mysql.Open(url), &gorm.Config{Logger: newLogger})
 	if err != nil {
 		Zaplogger.Info("Url: ", url)
