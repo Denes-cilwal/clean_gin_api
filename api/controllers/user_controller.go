@@ -21,7 +21,7 @@ func NewUserController(userService services.UserService) UserController {
 // SaveUser saves the user
 func (uc UserController) SaveUser(c *gin.Context) {
 	// validate input
-	user := models.User{}
+	var user models.User
 	if err := c.ShouldBindJSON(&user); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": err.Error(),
