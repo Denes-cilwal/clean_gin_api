@@ -20,3 +20,8 @@ func NewUserRepository(db infrastructure.Database) UserRepository {
 func (u UserRepository) SaveUser(user models.User) error {
 	return u.db.DB.Create(user).Error
 }
+
+// Get single user
+func (r UserRepository) GetOne(id uint) (user models.User, err error) {
+	return user, r.db.DB.Where("id = ?", id).First(&user).Error
+}
