@@ -7,4 +7,5 @@
       - sentry integration
       - Cobra CLI
       - Firebase authentication
+      - CICD with github Actions
       
