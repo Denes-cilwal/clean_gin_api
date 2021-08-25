@@ -17,8 +17,11 @@ type IRoute interface {
 }
 
 // NewRoutes sets up routes
-func NewRoutes() Routes {
-	return Routes{}
+// NewRoutes sets up routes
+func NewRoutes(userRoutes UserRoutes) Routes {
+	return Routes{
+		userRoutes,
+	}
 }
 
 // Setup all the route
