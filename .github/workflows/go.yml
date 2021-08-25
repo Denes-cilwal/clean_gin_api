@@ -26,7 +26,8 @@ jobs:
           DB_USERNAME=root
           DB_PASSWORD=MyNopassword
           MAX_MULTIPART_MEMORY=10485760
-          ADMINER_PORT=5001" >.env      
+          ADMINER_PORT=5001
+          DEBUG_PORT=5002" >.env      
     - name: testing docker-compose build
       run: | 
        docker-compose build
