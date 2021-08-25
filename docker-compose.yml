@@ -1,4 +1,4 @@
-version: '3.0'
+version: "3.3"
 
 services:
   web:
@@ -6,35 +6,33 @@ services:
       context: .
       dockerfile: ./docker/app.dockerfile
     ports:
-      - 9000:8080
+      - ${SERVER_PORT}:${SERVER_PORT}
     volumes:
       - .:/clean_gin_api
+    env_file: .env
+    container_name: clean-gin-web
     depends_on:
       - database
-    container_name: golang-docker-web
-    environment:
-      - 'DB_PORT=3306'
-      - 'DB_HOST=database'
 
   database:
-    image: mysql:5.7.22
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: root
-      MYSQL_PASSWORD: root
-      MYSQL_DATABASE: clean_gin_api-db
-    container_name: golang-clean_gin_api-db
+    build: 
+      context: .
+      dockerfile: ./docker/db.dockerfile
+    environment:   
+      MYSQL_ROOT_PASSWORD: "${DB_PASS}"
+      MYSQL_DATABASE: "${DB_NAME}"
+      MYSQL_ROOT_HOST: "%"
+      container_name: clean-gin-db
     ports:
-      - 33066:3306
+      - 33066:3308
     volumes:
-      - golang-docker-data:/var/lib/mysql 
+      - clean_gin_db:/var/lib/mysql 
 
- 
   adminer:
-        image: adminer
-        ports:
-          - 8081:8080
+    image: adminer
+    ports:
+    - ${ADMINER_PORT}:8080
 
 # persisted storage
 volumes:
-  golang-docker-data:
+  clean_gin_db:

@@ -15,3 +15,8 @@
 # vendor/
 
 .env
+.git
+log
+.idea/
+
+serviceAccountKey.json
