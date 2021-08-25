@@ -32,10 +32,10 @@ jobs:
     - name: testing docker-compose build
       run: | 
        docker-compose build
-    - run: docker-compose up 
+    - run: docker-compose up -d
     - name: Validate if the service is working or not via health check api
       run: |
-        sleep 10
+        sleep 60
         curl http://localhost:9000/health-check
     
   
