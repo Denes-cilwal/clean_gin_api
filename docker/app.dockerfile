@@ -28,6 +28,7 @@ WORKDIR /clean_gin_api
 
 RUN go mod download
 
+RUN go get github.com/go-delve/delve/cmd/dlv
 
-
+CMD sh /clean_gin_api/docker/run.sh
 

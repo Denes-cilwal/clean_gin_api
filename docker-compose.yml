@@ -7,32 +7,35 @@ services:
       dockerfile: ./docker/app.dockerfile
     ports:
       - ${SERVER_PORT}:${SERVER_PORT}
+      - ${DEBUG_PORT}:2345
     volumes:
       - .:/clean_gin_api
     env_file: .env
     container_name: clean-gin-web
+    security_opt:
+      - seccomp:unconfined
     depends_on:
       - database
 
   database:
-    build: 
+    build:
       context: .
       dockerfile: ./docker/db.dockerfile
-    environment:   
+    environment:
       MYSQL_ROOT_PASSWORD: "${DB_PASS}"
       MYSQL_DATABASE: "${DB_NAME}"
       MYSQL_ROOT_HOST: "%"
-      container_name: clean-gin-db
+    container_name: clean-gin-db
+    command: ['--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci','--default-authentication-plugin=mysql_native_password']
     ports:
-      - 33066:3308
+      - 33068:3306
     volumes:
-      - clean_gin_db:/var/lib/mysql 
+      - clean_gin_db:/var/lib/mysql
 
   adminer:
     image: adminer
     ports:
-    - ${ADMINER_PORT}:8080
+      - ${ADMINER_PORT}:8080
 
-# persisted storage
 volumes:
   clean_gin_db:
