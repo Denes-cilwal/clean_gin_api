@@ -18,12 +18,13 @@ jobs:
         go-version: 1.17
     - name: Initialize the environment variables
       run: |
-          echo "SERVER_PORT=9000
+          echo "
+          SERVER_PORT=9000
           ENVIRONMENT=local
-          DB_HOST=localhost
+          DB_HOST=database
           DB_PORT=3306
           DB_NAME=clean-gin-db
-          DB_USERNAME=root
+          DB_USER=root
           DB_PASS=MyNopassword
           MAX_MULTIPART_MEMORY=10485760
           ADMINER_PORT=5001
@@ -31,7 +32,7 @@ jobs:
     - name: testing docker-compose build
       run: | 
        docker-compose build
-    - run: docker-compose up -d
+    - run: docker-compose up 
     - name: Validate if the service is working or not via health check api
       run: |
         sleep 10
