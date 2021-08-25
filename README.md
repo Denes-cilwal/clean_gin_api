@@ -1,5 +1,7 @@
  # Clean_Gin_api
 
+CICD -  IN PROGRESS
+
  - TODO 
       - DB TRANSCATION
       - REPLACE go-migrate to ruby migration Library
@@ -7,5 +9,5 @@
       - sentry integration
       - Cobra CLI
       - Firebase authentication
-      - CICD with github Actions
+    
       
