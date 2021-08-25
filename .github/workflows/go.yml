@@ -24,7 +24,7 @@ jobs:
           DB_PORT=3306
           DB_NAME=clean-gin-db
           DB_USERNAME=root
-          DB_PASSWORD=MyNopassword
+          DB_PASS=MyNopassword
           MAX_MULTIPART_MEMORY=10485760
           ADMINER_PORT=5001
           DEBUG_PORT=5002" >.env      
