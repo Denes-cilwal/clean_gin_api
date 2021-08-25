@@ -24,5 +24,16 @@ jobs:
       run: |
         sleep 10
         curl http://localhost:9000/health-check
-      
+    - name: Initialize the environment variables
+        run: |
+          echo "SERVER_PORT=9000
+          ENVIRONMENT=local
+          DB_HOST=localhost
+          DB_PORT=3306
+          DB_NAME=clean-gin-db
+          DB_USERNAME=root
+          DB_PASSWORD=MyNopassword
+          MAX_MULTIPART_MEMORY=10485760
+          ADMINER_PORT=5001
+          .env  
   
