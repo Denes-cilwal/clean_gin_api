@@ -35,7 +35,7 @@ jobs:
     - run: docker-compose up -d
     - name: Validate if the service is working or not via health check api
       run: |
-        sleep 60
+        sleep 20
         curl http://localhost:9000/health-check
     
   
