@@ -18,14 +18,14 @@ jobs:
         go-version: 1.17
     - name: Initialize the environment variables
       run: |
-          echo "creating .env file"
+          echo "running .env file"
           echo "SERVER_PORT=9000
           ENVIRONMENT=local
-          DB_HOST=${{ secrets.DB_HOST }}
+          DB_HOST=database
           DB_PORT=3306
-          DB_NAME=${{ secrets.DB_NAME }}
-          DB_USER=${{ secrets.DB_USER }}
-          DB_PASS=${{ secrets.DB_PASS }}
+          DB_NAME=clean_gin_db
+          DB_USER=root
+          DB_PASS=MyNopassword
           MAX_MULTIPART_MEMORY=10485760
           ADMINER_PORT=5001
           DEBUG_PORT=5002" >.env            
