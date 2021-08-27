@@ -11,7 +11,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - name: checkout source code 
+      uses: actions/checkout@v2
     - name: Set up Go
       uses: actions/setup-go@v2
       with:
@@ -21,11 +22,11 @@ jobs:
           echo "running .env file"
           echo "SERVER_PORT=9000
           ENVIRONMENT=local
-          DB_HOST=database
+          DB_HOST=${{ secrets.DB_HOST ß}}
           DB_PORT=3306
-          DB_NAME=clean_gin_db
-          DB_USER=root
-          DB_PASS=MyNopassword
+          DB_NAME=${{ secrets.DB_NAME }}
+          DB_USER=${{ secrets.DB_USER }}
+          DB_PASS=${{ secrets.DB_PASS }}
           MAX_MULTIPART_MEMORY=10485760
           ADMINER_PORT=5001
           DEBUG_PORT=5002" >.env            
