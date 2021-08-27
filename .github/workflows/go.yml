@@ -22,7 +22,7 @@ jobs:
           echo "running .env file"
           echo "SERVER_PORT=9000
           ENVIRONMENT=local
-          DB_HOST=${{ secrets.DB_HOST ß}}
+          DB_HOST=${{ secrets.DB_HOST }}
           DB_PORT=3306
           DB_NAME=${{ secrets.DB_NAME }}
           DB_USER=${{ secrets.DB_USER }}
