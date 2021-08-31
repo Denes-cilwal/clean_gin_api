@@ -18,6 +18,7 @@ jobs:
       with:
         go-version: 1.17
     - name: Initialize the environment variables
+      id : check_env
       run: |
           echo "running .env file"
           echo "SERVER_PORT=9000
@@ -29,14 +30,20 @@ jobs:
           DB_PASS=${{ secrets.DB_PASS }}
           MAX_MULTIPART_MEMORY=10485760
           ADMINER_PORT=5001
-          DEBUG_PORT=5002" >.env            
+          DEBUG_PORT=5002" >.env   
+          echo ::set-output name=status::failure
     - name: testing docker-compose build
+      id: 4
       run: | 
        docker-compose build
     - run: docker-compose up -d
     - name: Validate if the service is working or not via health check api
+      id : 5
       run: |
         sleep 120
         curl http://localhost:9000/health-check
-    
+        echo ::set-output name=status::success
+    - name: Check on failures
+        if: steps.id.outputs.status == 'failure' || steps.id.outputs.status == 'failure'
+        run: exit 1
   
