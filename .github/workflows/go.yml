@@ -33,17 +33,15 @@ jobs:
           DEBUG_PORT=5002" >.env   
           echo ::set-output name=status::failure
     - name: testing docker-compose build
-      id: 4
+
       run: | 
        docker-compose build
     - run: docker-compose up -d
     - name: Validate if the service is working or not via health check api
-      id : 5
+
       run: |
         sleep 120
         curl http://localhost:9000/health-check
         echo ::set-output name=status::success
-    - name: Check on failures
-        if: steps.id.outputs.status == 'failure' || steps.id.outputs.status == 'failure'
-        run: exit 1
+
   
