@@ -31,25 +31,21 @@ jobs:
           ADMINER_PORT=5001
           DEBUG_PORT=5002" >.env   
     - name: testing docker-compose build
-<<<<<<< HEAD
-=======
-
->>>>>>> f5c8d4571d42e29fddc1a2f61e4a8269b50ff3b0
       run: | 
        docker-compose build
     - run: docker-compose up -d
     - name: Validate if the service is working or not via health check api
-<<<<<<< HEAD
       run: |
         sleep 120
         curl http://localhost:9000/health-check
        
-      - name: Slack Notification on SUCCESS
-        if: success() # Pick up events even if the job gets success
-        uses: tokorom/action-slack-incoming-webhook@main
-        env:
+    - name: Slack Notification on SUCCESS
+      if: success()
+        # Pick up events even if the job gets success
+      uses: tokorom/action-slack-incoming-webhook@main
+      env:
           INCOMING_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-        with:
+      with:
           text: A build job on master job for clean_gin±_api has succeeded :tada:.
           attachments: |
             [
@@ -73,12 +69,13 @@ jobs:
                 ]
               }
             ]
-      - name: Slack Notification on FAILURE
-        if: failure() # Pick up events even if the job fails or is canceled.
-        uses: tokorom/action-slack-incoming-webhook@main
-        env:
-          INCOMING_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-        with:
+    - name: Slack Notification on FAILURE
+        if:failure() 
+        # Pick up events even if the job fails or is canceled.
+      uses: tokorom/action-slack-incoming-webhook@main
+      env:
+        INCOMING_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      with:
           text: A build  job on master for clean_gin_api has failed :crying_cat_face:.
           attachments: |
             [
@@ -102,12 +99,4 @@ jobs:
                 ]
               }
             ]
-=======
 
-      run: |
-        sleep 120
-        curl http://localhost:9000/health-check
-        echo ::set-output name=status::success
-
-  
->>>>>>> f5c8d4571d42e29fddc1a2f61e4a8269b50ff3b0
