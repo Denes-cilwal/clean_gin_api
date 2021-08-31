@@ -31,10 +31,15 @@ jobs:
           ADMINER_PORT=5001
           DEBUG_PORT=5002" >.env   
     - name: testing docker-compose build
+<<<<<<< HEAD
+=======
+
+>>>>>>> f5c8d4571d42e29fddc1a2f61e4a8269b50ff3b0
       run: | 
        docker-compose build
     - run: docker-compose up -d
     - name: Validate if the service is working or not via health check api
+<<<<<<< HEAD
       run: |
         sleep 120
         curl http://localhost:9000/health-check
@@ -97,3 +102,12 @@ jobs:
                 ]
               }
             ]
+=======
+
+      run: |
+        sleep 120
+        curl http://localhost:9000/health-check
+        echo ::set-output name=status::success
+
+  
+>>>>>>> f5c8d4571d42e29fddc1a2f61e4a8269b50ff3b0
