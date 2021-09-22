@@ -1,10 +1,35 @@
- # Clean_Gin_api
+### Go Clean-Architecture Implementation
+Clean Architecture with Golang with Dependency Injection
 
-CICD -  IN PROGRESS
+### Run Migration Commands
+> ⚓️ &nbsp; Add argument `p=host` after `make` if you want to run the migration runner from the host environment instead of docker environment. example; `make p=host migrate-up`
 
- - TODO 
+If you are not using docker; ensure that sql-migrate is installed to use migration from the host environment.
+To install sql-migrate:
+> go get -v github.com/rubenv/sql-migrate/...
+
+<details>
+    <summary>Migration commands available</summary>
+
+| Command              | Desc                                                       |
+| -------------------- | ---------------------------------------------------------- |
+| `make migrate-status`| Show migration status                                      |
+| `make migrate-up`    | Migrates the database to the most recent version available |
+| `make migrate-down`  | Undo a database migration                                  |
+| `make redo`          | Reapply the last migration                                 |
+| `make create`        | Create new migration file                                  |
+
+</details>
+
+
+### Run app with docker
+- Update database env variables with credentials defined in `docker-compose.yml`
+- Start server using command `docker-compose up -d` or `sudo docker-compose up -d` if permission issues
+    > Assumes: Docker is already installed in the machine. 
+
+
+- TODO 
       - DB TRANSCATION
-      - REPLACE go-migrate to ruby migration Library
       - Upload Middleware
       - sentry integration
       - Cobra CLI
