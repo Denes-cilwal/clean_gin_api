@@ -7,8 +7,6 @@ on:
     branches: [ master ]
 
 jobs:
-  static_check:
-   name: Perform Static check 
   build:
     name: Build the clean_gin_api repository in master
     runs-on: ubuntu-latest
