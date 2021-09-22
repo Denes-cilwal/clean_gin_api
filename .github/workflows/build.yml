@@ -7,6 +7,8 @@ on:
     branches: [ master ]
 
 jobs:
+  static_check:
+   name: Perform Static check 
   build:
     name: Build the clean_gin_api repository in master
     runs-on: ubuntu-latest
@@ -70,7 +72,7 @@ jobs:
               }
             ]
     - name: Slack Notification on FAILURE
-        if:failure() 
+      if: failure() 
         # Pick up events even if the job fails or is canceled.
       uses: tokorom/action-slack-incoming-webhook@main
       env:
