@@ -1,10 +1,16 @@
  # Clean_Gin_api
 
-CICD -  IN PROGRESS
+### Golang-Gin-Repository
+
+- Clean--architecture
+- Dependency-Injection with uber-FX
+- docker
+- Zap Logger
+- [Viper](https://github.com/spf13/viper) 
+- [Schema migration tool for Go](https://github.com/rubenv/sql-migrate)
 
  - TODO 
       - DB TRANSCATION
-      - REPLACE go-migrate to ruby migration Library
       - Upload Middleware
       - sentry integration
       - Cobra CLI
