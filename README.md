@@ -1,15 +1,34 @@
- # Clean_Gin_api
+### Go Clean-Architecture Implementation
+Clean Architecture with Golang with Dependency Injection
 
-### Golang-Gin-Repository
+### Run Migration Commands
+> ⚓️ &nbsp; Add argument `p=host` after `make` if you want to run the migration runner from the host environment instead of docker environment. example; `make p=host migrate-up`
 
-- Clean--architecture
-- Dependency-Injection with uber-FX
-- docker
-- Zap Logger
-- [Viper](https://github.com/spf13/viper) 
-- [Schema migration tool for Go](https://github.com/rubenv/sql-migrate)
+If you are not using docker; ensure that sql-migrate is installed to use migration from the host environment.
+To install sql-migrate:
+> go get -v github.com/rubenv/sql-migrate/...
 
- - TODO 
+<details>
+    <summary>Migration commands available</summary>
+
+| Command              | Desc                                                       |
+| -------------------- | ---------------------------------------------------------- |
+| `make migrate-status`| Show migration status                                      |
+| `make migrate-up`    | Migrates the database to the most recent version available |
+| `make migrate-down`  | Undo a database migration                                  |
+| `make redo`          | Reapply the last migration                                 |
+| `make create`        | Create new migration file                                  |
+
+</details>
+
+
+### Run app with docker
+- Update database env variables with credentials defined in `docker-compose.yml`
+- Start server using command `docker-compose up -d` or `sudo docker-compose up -d` if permission issues
+    > Assumes: Docker is already installed in the machine. 
+
+
+- TODO 
       - DB TRANSCATION
       - Upload Middleware
       - sentry integration
