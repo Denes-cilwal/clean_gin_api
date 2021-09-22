@@ -15,8 +15,12 @@
 # vendor/
 
 .env
+log/access.log
 .git
 log
 .idea/
+.DS_Store
+
+__debug_bin
 
 serviceAccountKey.json
