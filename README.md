@@ -28,11 +28,14 @@ To install sql-migrate:
     > Assumes: Docker is already installed in the machine. 
 
 
+- IN-PROGRESS : 
+twilo-go
 - TODO 
       - DB TRANSCATION
       - Upload Middleware
       - sentry integration
       - Cobra CLI
       - Firebase authentication
+      
     
       
