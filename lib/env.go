@@ -14,6 +14,8 @@ type Env struct {
 	DBHost      string `mapstructure:"DB_HOST"`
 	DBPort      string `mapstructure:"DB_PORT"`
 	DBName      string `mapstructure:"DB_NAME"`
+	AccountSid  string `mapstructure:"ACCOUNT_SID"`
+	AuthToken   string `mapstructure:"AUTH_TOKEN"`
 }
 
 func NewEnv() Env {
