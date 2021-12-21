@@ -2,23 +2,23 @@ name: clean-gin-api
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
   build:
     name: Build the clean_gin_api repository in master
     runs-on: ubuntu-latest
     steps:
-    - name: checkout source code 
-      uses: actions/checkout@v2
-    - name: Use golang ${{matrix.go-version}}
-      uses: actions/setup-go@v2
-      with:
-        go-version: '1.17'
-    - name: Initialize the environment variables
-      run: |
+      - name: checkout source code
+        uses: actions/checkout@v2
+      - name: Use golang ${{matrix.go-version}}
+        uses: actions/setup-go@v2
+        with:
+          go-version: "1.17"
+      - name: Initialize the environment variables
+        run: |
           echo "running .env file"
           echo "SERVER_PORT=9000
           ENVIRONMENT=local
@@ -29,24 +29,25 @@ jobs:
           DB_PASS=${{ secrets.DB_PASS }}
           MAX_MULTIPART_MEMORY=10485760
           ADMINER_PORT=5001
-          DEBUG_PORT=5002" >.env   
-    - name: testing docker-compose build
-      run: | 
-       docker-compose build
-    - run: docker-compose up -d
-    - name: Validate if the service is working or not via health check api
-      run: |
-        sleep 120
-        curl http://localhost:9000/health-check
-       
-    - name: Slack Notification on SUCCESS
-      if: success()
-        # Pick up events even if the job gets success
-      uses: tokorom/action-slack-incoming-webhook@main
-      env:
+          DEBUG_PORT=5002" >.env
+      - name: testing docker-compose build
+        run: |
+          docker-compose build
+      - run: docker-compose up -d
+      - name: Validate if the service is working or not via health check api
+        run: |
+          sleep 120
+          curl http://localhost:9000/health-check
+
+      - name: Slack Notification on SUCCESS
+        if:
+          success()
+          # Pick up events even if the job gets success
+        uses: tokorom/action-slack-incoming-webhook@main
+        env:
           INCOMING_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-      with:
-          text: A build job on master job for clean_gin±_api has succeeded :tada:.
+        with:
+          text: A build job on master job for clean_gin_api has succeeded :tada:.
           attachments: |
             [
               {
@@ -69,13 +70,14 @@ jobs:
                 ]
               }
             ]
-    - name: Slack Notification on FAILURE
-      if: failure() 
-        # Pick up events even if the job fails or is canceled.
-      uses: tokorom/action-slack-incoming-webhook@main
-      env:
-        INCOMING_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-      with:
+      - name: Slack Notification on FAILURE
+        if:
+          failure()
+          # Pick up events even if the job fails or is canceled.
+        uses: tokorom/action-slack-incoming-webhook@main
+        env:
+          INCOMING_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        with:
           text: A build  job on master for clean_gin_api has failed :crying_cat_face:.
           attachments: |
             [
@@ -99,4 +101,3 @@ jobs:
                 ]
               }
             ]
-
