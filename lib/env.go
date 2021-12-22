@@ -16,6 +16,7 @@ type Env struct {
 	DBName           string `mapstructure:"DB_NAME"`
 	AccountSid       string `mapstructure:"ACCOUNT_SID"`
 	AuthToken        string `mapstructure:"AUTH_TOKEN"`
+	SmsSenderNumber  string `mapstructure:"SMS_SENDER_NUMBER"`
 	MailClientID     string `mapstructure:"MAIL_CLIENT_ID"`
 	MailClientSecret string `mapstructure:"MAIL_CLIENT_SECRET"`
 	MailTokenType    string `mapstructure:"MAIL_TOKEN_TYPE"`

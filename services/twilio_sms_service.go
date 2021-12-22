@@ -27,11 +27,12 @@ func NewSMSService(smsrepo respository.SMSRepository, logger lib.Logger, env lib
 	}
 }
 
-func (ss SMSService) SendSMS(sms models.SMS) error {
+func (ss SMSService) SendSMS(sms *models.SMS) error {
 
 	// var clientMsg models.SMS
 	sid := ss.env.AccountSid
 	authToken := ss.env.AuthToken
+	senderNumber := ss.env.SmsSenderNumber
 
 	client := twilio.NewRestClientWithParams(twilio.RestClientParams{
 		Username: sid,
@@ -39,7 +40,7 @@ func (ss SMSService) SendSMS(sms models.SMS) error {
 	})
 	params := &openapi.CreateMessageParams{}
 	params.SetTo(sms.To)
-	params.SetFrom(sms.From)
+	params.SetFrom(senderNumber)
 	params.SetBody(sms.Message)
 
 	resp, err := client.ApiV2010.CreateMessage(params)
@@ -52,6 +53,6 @@ func (ss SMSService) SendSMS(sms models.SMS) error {
 	}
 
 	// err = ss.repository.SendSMS(sms)
-	return err
+	return nil
 
 }

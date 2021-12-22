@@ -5,7 +5,7 @@ go 1.16
 require (
 	github.com/gin-gonic/gin v1.7.2
 	github.com/google/uuid v1.2.0
-	github.com/rubenv/sql-migrate v0.0.0-20210614095031-55d5740dbbcc
+	github.com/rubenv/sql-migrate v0.0.0-20211023115951-9f02b1e13857
 	github.com/sirupsen/logrus v1.7.0 // indirect
 	github.com/spf13/viper v1.8.1
 	github.com/twilio/twilio-go v0.19.0

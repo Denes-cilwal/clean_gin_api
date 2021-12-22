@@ -39,11 +39,16 @@ func (s SMSController) SaveAndSendSms(c *gin.Context) {
 		return
 	}
 
-	sendSms := s.service.SendSMS(message).Error()
-	fmt.Println(sendSms, "----------")
+	err := s.service.SendSMS(&message)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"err": err.Error(),
+		})
+	}
+	fmt.Println(err, "----------")
 
 	c.JSON(http.StatusOK, gin.H{
-		"message": sendSms,
+		"message": "success",
 	})
 	return
 }
