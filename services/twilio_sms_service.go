@@ -51,7 +51,7 @@ func (ss SMSService) SendSMS(sms models.SMS) error {
 		fmt.Println("Response: " + string(response))
 	}
 
-	err = ss.repository.SendSMS(sms)
+	// err = ss.repository.SendSMS(sms)
 	return err
 
 }
