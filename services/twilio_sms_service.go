@@ -48,10 +48,9 @@ func (ss SMSService) SendSMS(sms models.SMS) error {
 		fmt.Println(err.Error())
 	} else {
 		response, _ := json.Marshal(*resp)
-		fmt.Println("Response: " + string(response))
+		fmt.Println("Responses: " + string(response))
 	}
 
-	// err = ss.repository.SendSMS(sms)
 	return err
 
 }

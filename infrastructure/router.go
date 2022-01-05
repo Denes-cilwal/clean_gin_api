@@ -18,7 +18,7 @@ func NewRouter() Router {
 	// intialize a router.
 	httpRouter := gin.Default()
 	httpRouter.GET("/health-check", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{"data": "clean_gin_api 📺 API Up and Running"})
+		c.JSON(http.StatusOK, gin.H{"data": "clean_gin_api 📺  Up and Running"})
 	})
 
 	return Router{

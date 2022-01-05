@@ -30,5 +30,6 @@ func (u User) TableName() string {
 func (t *User) BeforeCreate(tx *gorm.DB) error {
 	id, err := uuid.NewRandom()
 	t.ID = lib.BinaryUUID(id)
+	// sdsk
 	return err
 }
