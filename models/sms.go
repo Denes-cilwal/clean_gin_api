@@ -13,8 +13,7 @@ type SMS struct {
 	Base
 	Message   string    `json:"message"`
 	To        string    `json:"to"`
-	From      string    `json:"From"`
-	CreatedAt time.Time `json:"created_at" form:"created_at"`
+	CreatedAt time.Time `json:"created_at" `
 }
 
 func (n *SMS) BeforeCreate(db *gorm.DB) error {

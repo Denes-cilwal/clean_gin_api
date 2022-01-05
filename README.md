@@ -1,3 +1,6 @@
+ - ✅ [Golang-Core](https://github.com/Denes-cilwal/Base-Go)
+
+
 ### Go Clean-Architecture Implementation
 Clean Architecture with Golang with Dependency Injection
 
@@ -28,14 +31,17 @@ To install sql-migrate:
     > Assumes: Docker is already installed in the machine. 
 
 
-- IN-PROGRESS : 
-twilo-go
-- TODO 
-      - DB TRANSCATION
+### Twilio-Go 
+### CICD  (With GithubActions)
+### Sending Email with Go via Gmail API and OAuth2
+
+###  TODO 
       - Upload Middleware
       - sentry integration
       - Cobra CLI
       - Firebase authentication
+
+ 
       
     
       
