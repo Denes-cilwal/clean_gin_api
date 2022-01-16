@@ -52,11 +52,7 @@ func (ss SMSService) SendSMS(sms *models.SMS) error {
 		fmt.Println("Responses: " + string(response))
 	}
 
-<<<<<<< HEAD
-	return err
-=======
 	// err := ss.repository.SendSMS(response)
 	return nil
->>>>>>> f9fe04137398b9e238109229113872104474072b
 
 }

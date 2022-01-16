@@ -17,7 +17,7 @@ func NewUserService(userrepo respository.UserRepository) UserService {
 	}
 }
 
-func (us UserService) CreateUser(user models.User) error {
-	err := us.repository.SaveUser(user)
-	return err
+func (us UserService) CreateUser(user *models.User) (*models.User, error) {
+	
+	return us.repository.CreateUser(user)
 }
