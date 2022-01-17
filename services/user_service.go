@@ -2,22 +2,21 @@ package services
 
 import (
 	"clean_gin_api/models"
-	"clean_gin_api/respository"
 )
 
 type UserService struct {
-	repository respository.UserRepository
+	repository models.UserRepo
 }
 
 // NewUserService is a factory function for
 // initializing a UserService with its repository layer dependencies
-func NewUserService(userrepo respository.UserRepository) UserService {
+func NewUserService(userrepo models.UserRepo) UserService {
 	return UserService{
 		repository: userrepo,
 	}
 }
 
 func (us UserService) CreateUser(user *models.User) (*models.User, error) {
-	
+
 	return us.repository.CreateUser(user)
 }

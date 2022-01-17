@@ -12,12 +12,12 @@ type UserRepoTestifyMock struct {
 	mock.Mock
 }
 
-func (u *UserRepoTestifyMock) CreateUser(user models.User) (models.User, error) {
+func (u UserRepoTestifyMock) CreateUser(user *models.User) (*models.User, error) {
 	// user is args here ..
 	args := u.Called()
 	// get returns args at specific index
 	result := args.Get(0)
-	return result.(models.User), args.Error(1)
+	return result.(*models.User), args.Error(1)
 }
 
 func TestCreateUser(t *testing.T) {
@@ -32,6 +32,6 @@ func TestCreateUser(t *testing.T) {
 
 	mockRepo.AssertExpectations(t)
 
-	assert.Equal(t, "dnes", result.ID)
+	assert.Equal(t, "dnes", result.Name)
 	assert.Nil(t, err)
 }
