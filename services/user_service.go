@@ -5,18 +5,13 @@ import (
 )
 
 type UserService struct {
-	repository models.UserRepo
+	repository models.User
 }
 
 // NewUserService is a factory function for
 // initializing a UserService with its repository layer dependencies
-func NewUserService(userrepo models.UserRepo) UserService {
+func NewUserService(userrepo models.User) UserService {
 	return UserService{
 		repository: userrepo,
 	}
-}
-
-func (us UserService) CreateUser(user *models.User) (*models.User, error) {
-
-	return us.repository.CreateUser(user)
 }

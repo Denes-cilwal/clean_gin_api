@@ -29,9 +29,5 @@ func NewUserRoutes(
 // Setup user routes
 func (s UserRoutes) Setup() {
 	s.logger.Info("Setting up routes")
-	api := s.handler.Group("/api")
-	{
-		api.POST("/user", s.userController.SaveUser)
 
-	}
 }
