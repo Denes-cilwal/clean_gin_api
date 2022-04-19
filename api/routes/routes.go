@@ -6,7 +6,6 @@ import "go.uber.org/fx"
 var Module = fx.Options(
 	fx.Provide(NewUserRoutes),
 	fx.Provide(NewRoutes),
-	fx.Provide(NewSMSRoutes),
 )
 
 // Routes contains multiple routes
@@ -19,10 +18,9 @@ type IRoute interface {
 
 // NewRoutes sets up routes
 // NewRoutes sets up routes
-func NewRoutes(userRoutes UserRoutes, smsRoutes SMSRoutes) Routes {
+func NewRoutes(userRoutes UserRoutes) Routes {
 	return Routes{
 		userRoutes,
-		smsRoutes,
 	}
 }
 
