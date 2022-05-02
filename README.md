@@ -45,3 +45,12 @@ To install sql-migrate:
       
     
       
+| task                  | Endpoints                                                  |
+| --------------------  | ---------------------------------------------------------- |
+| `Create Job`          |    {{BASE_URL}}//job                                       |
+| `Get all Jobs`        |    {{BASE_URL}}//job/all                                   |
+| `Get Single Job`      |    {{BASE_URL}}//job/single/:id                            |
+| `Delete Job`          |    {{BASE_URL}}//job/delete-job/:id                        |
+| `Approve||Decline-Job`|    {{BASE_URL}}//job/approve-decline/:jobId                |
+| `Update Public Status`|    {{BASE_URL}}//job//toggle-public-status/:jobId          |
+
