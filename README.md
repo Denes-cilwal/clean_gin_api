@@ -44,34 +44,6 @@ To install sql-migrate:
  
       
     
-      
-| Jobs                  | Endpoints                                                  |
-| --------------------  | ---------------------------------------------------------- |
-| `Create Job`          |    {{BASE_URL}}/job                                        |
-| `Get all Jobs`        |    {{BASE_URL}}/job/all                                    |
-| `Get Single Job`      |    {{BASE_URL}}/job/single/:id                             |
-| `Delete Job`          |    {{BASE_URL}}/job/delete-job/:id                         |
-| `Approve&Decline-Job` |    {{BASE_URL}}/job/approve-decline/:jobId                 |
-| `Update Public Status`|    {{BASE_URL}}/job//toggle-public-status/:jobId           |
-
-| Job-Request           | Endpoints                                                  |
-| --------------------  | ---------------------------------------------------------- |
-| `Create Job Request`  |    {{BASE_URL}}/job-request                                |
-| `Get Single `         |    {{BASE_URL}}/job-request/single                         |
-| `Update`              |    {{BASE_URL}}/job-request/:id                            |
-
-| Job-For               | Endpoints                                                  |
-| ----------------------| ---------------------------------------------------------- |
-| `Create Job for`      |    {{BASE_URL}}/job-for                                    |
-| `Get Single `         |    {{BASE_URL}}/job-for/single                             |
-| `Update`              |    {{BASE_URL}}/job-for/:id                                |
-
-| Jobs-Interest              | Endpoints                                                  |
-| -------------------------- | ---------------------------------------------------------- |
-| `Add Job interest-user`    |    {{BASE_URL}}/job-interest                               |
-| `Get Job interest-user`    |    {{BASE_URL}}/job-interest/all                           |
-| `Update Job interest-user `|    {{BASE_URL}}/job-interest                               |
-| `Delete Job interest users`|    {{BASE_URL}}/job-interest                               |
-
+ 
 
 
