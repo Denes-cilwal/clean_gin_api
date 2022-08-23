@@ -16,7 +16,8 @@ import (
 //SendGridEmailService -> Interface to Sendgrid Email Service
 
 type SendGridEmailService interface {
-	SendEmail(string, string, interface{}, string, interface{}, string, string, string, bool) (bool, error)
+SendEmail(toEmail, emailSubject string,  emailBody string,  lang string, isBCC bool) (bool, error)
+	GetAllUnsubscribers() ([]string, error)
 	}
 
 type sendGridEmailService struct {
@@ -34,7 +35,7 @@ func NewSendGridEmailService() SendGridEmailService {
 }
 
 //SendEmail -> to send email with the provided data
-func (send *sendGridEmailService) SendEmail(toEmail, emailSubject string, emailSubjectData interface{}, emailSubjectTemplateName string, emailBodyData interface{}, emailBody string, emailBodyTemplateBodyName string, lang string, isBCC bool) (bool, error) {
+func (send *sendGridEmailService) SendEmail(toEmail, emailSubject string,  emailBody string,  lang string, isBCC bool) (bool, error) {
 
 	
   // Add from and to address
