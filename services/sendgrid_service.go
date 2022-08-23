@@ -7,7 +7,7 @@ import (
 	"log"
 	"os"
 	"api/constants"
-	"api/utils"
+	
 
 	"github.com/sendgrid/sendgrid-go"
 	"github.com/sendgrid/sendgrid-go/helpers/mail"
@@ -36,27 +36,9 @@ func NewSendGridEmailService() SendGridEmailService {
 //SendEmail -> to send email with the provided data
 func (send *sendGridEmailService) SendEmail(toEmail, emailSubject string, emailSubjectData interface{}, emailSubjectTemplateName string, emailBodyData interface{}, emailBody string, emailBodyTemplateBodyName string, lang string, isBCC bool) (bool, error) {
 
-	log.Print("starting to send email", toEmail)
-	if emailBody == "" && emailSubject == "" {
-		isEmailSubjectEmpty := utils.IsInterfaceEmpty(emailSubjectData)
 	
-		var err error
-		if !isEmailSubjectEmpty {
-			emailSubject, err = utils.ParseTemplate(emailSubjectTemplateName, emailSubjectData)
-
-			if err != nil {
-				return false, errors.New("unable to parse email subject template")
-			}
-		}
-
-		emailBody, err = utils.ParseTemplate(emailBodyTemplateBodyName, emailBodyData)
-
-		if err != nil {
-			return false, errors.New("unable to parse email body template")
-		}
-	}
-
-  // 
+  // Add from and to address
+	
 	from := mail.NewEmail("e運営チーム", os.Getenv("FROM_EMAIL"))
 	subject := emailSubject
 
@@ -65,11 +47,10 @@ func (send *sendGridEmailService) SendEmail(toEmail, emailSubject string, emailS
   // define content type here
 	content := mail.NewContent("text/html", emailBody)
 
-	// create new *Personalization
+  // create new *Personalization
 	personalization := mail.NewPersonalization()
 
-	// populate `personalization` with data
-
+  // populate `personalization` with data
 	if isBCC {
 		bcc := mail.NewEmail("", os.Getenv("BCC_EMAIL"))
 		personalization.AddBCCs(bcc)
@@ -81,7 +62,7 @@ func (send *sendGridEmailService) SendEmail(toEmail, emailSubject string, emailS
 
 	message.AddPersonalizations(personalization)
 
-	// Send the message using sendgrid service
+  // Send the message using sendgrid service
 
 	emailRes, err := send.SendGridEmailService.Send(message)
 	if err != nil {
