@@ -73,4 +73,27 @@ func (send *sendGridEmailService) SendEmail(toEmail, emailSubject string, emailS
 	return true, nil
 }
 
+func (send *sendGridEmailService) GetAllUnsubscribers() ([]string, error) {
 
+	client := os.Getenv("SENDGRID_API_KEY")
+	host := constants.Host
+	request := sendgrid.GetRequest(client, constants.UnsubscribesEndpoint, host)
+	request.Method = "GET"
+	response, err := sendgrid.API(request)
+	if err != nil {
+		return nil, err
+	}
+	var unsubscribedEmails []string
+
+	var dat []map[string]interface{}
+
+	if err := json.Unmarshal([]byte(response.Body), &dat); err != nil {
+		return nil, err
+	}
+
+	for _, res := range dat {
+		unsubscribedEmails = append(unsubscribedEmails, res["email"].(string))
+	}
+	return unsubscribedEmails, nil
+
+}
