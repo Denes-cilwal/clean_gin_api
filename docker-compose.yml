@@ -1,0 +1,63 @@
+version: "3.3"
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: ./docker/web.Dockerfile
+    ports:
+      - ${SERVER_PORT}:${SERVER_PORT}
+      - ${DEBUG_PORT}:2345
+    volumes:
+      - .:/clean_web
+    env_file: .env
+    container_name: clean-web
+    security_opt:
+      - seccomp:unconfined
+    depends_on:
+      database:
+        condition: service_healthy
+
+  database:
+    build:
+      context: .
+      dockerfile: ./docker/db.Dockerfile
+    environment:
+      MYSQL_ROOT_PASSWORD: "${DB_PASS}"
+      MYSQL_DATABASE: "${DB_NAME}"
+      MYSQL_ROOT_HOST: "%"
+    container_name: clean-db
+    command:
+      [
+        "--character-set-server=utf8mb4",
+        "--collation-server=utf8mb4_unicode_ci",
+        "--default-authentication-plugin=mysql_native_password",
+      ]
+    ports:
+      - 33068:3306
+    volumes:
+      - clean_db:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: "1s"
+      timeout: "10s"
+      retries: 10
+      start_period: "1s"
+
+  adminer:
+    image: adminer
+    ports:
+      - ${ADMINER_PORT}:8080
+
+  swagger-ui:
+    image: swaggerapi/swagger-ui
+    container_name: swagger-ui
+    ports:
+      - ${SWAGGER_PORT}:8080
+    volumes:
+      - ./docs:/usr/share/nginx/html/docs
+    environment:
+      API_URL: docs/openapi.yaml
+
+volumes:
+  clean_db:
