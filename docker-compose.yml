@@ -9,9 +9,9 @@ services:
       - ${SERVER_PORT}:${SERVER_PORT}
       - ${DEBUG_PORT}:2345
     volumes:
-      - .:/clean_web
+      - .:/clean_gin_web
     env_file: .env
-    container_name: clean-web
+    container_name: clean-gin-web
     security_opt:
       - seccomp:unconfined
     depends_on:
@@ -26,7 +26,7 @@ services:
       MYSQL_ROOT_PASSWORD: "${DB_PASS}"
       MYSQL_DATABASE: "${DB_NAME}"
       MYSQL_ROOT_HOST: "%"
-    container_name: clean-db
+    container_name: clean-gin-db
     command:
       [
         "--character-set-server=utf8mb4",
@@ -36,7 +36,7 @@ services:
     ports:
       - 33068:3306
     volumes:
-      - clean_db:/var/lib/mysql
+      - clean_gin_db:/var/lib/mysql
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: "1s"
@@ -49,15 +49,15 @@ services:
     ports:
       - ${ADMINER_PORT}:8080
 
-  swagger-ui:
-    image: swaggerapi/swagger-ui
-    container_name: swagger-ui
-    ports:
-      - ${SWAGGER_PORT}:8080
-    volumes:
-      - ./docs:/usr/share/nginx/html/docs
-    environment:
-      API_URL: docs/openapi.yaml
+  # swagger-ui:
+  #   image: swaggerapi/swagger-ui
+  #   container_name: swagger-ui
+  #   ports:
+  #     - ${SWAGGER_PORT}:8080
+  #   volumes:
+  #     - ./docs:/usr/share/nginx/html/docs
+  #   environment:
+  #     API_URL: docs/openapi.yaml
 
 volumes:
-  clean_db:
+  clean_gin_db:
